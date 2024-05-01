@@ -1,5 +1,5 @@
 <?php
-
+$txt = $_GET['txt'];
 // 替换成你的API密钥
 $apiKey = 'AIzaSyAUCBcQ5Vo31AzGkpqFLGOjlhcuVJGpre0';
 
@@ -11,7 +11,7 @@ $data = array(
     'contents' => array(
         'parts' => array(
             array(
-                'text' => 'Write a story about a magic backpack'
+                'text' => 'Write a story about a magic backpack'.$txt
             )
         )
     )
