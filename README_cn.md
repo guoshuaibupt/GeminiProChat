@@ -25,7 +25,7 @@
 > #### 关于 API 使用过程中 “User location is not supported for the API use” 的解决方案
 > 如果你遇到了 **“User location is not supported for the API use”** 的问题，请按照以下步骤进行解决：
 >
-> 1. 前往 [**palm-netlify-proxy**](https://github.com/antergone/palm-netlify-proxy) 仓库并点击其中的 **“Deploy With Netlify**。
+> 1. 前往 [**palm-netlify-proxy**](https://github.com/antergone/palm-netlify-proxy) 仓库并点击其中的 **“Deploy With Netlify”**。
 > 2. 部署完成后，你将收到 Netlify 分配的域名 （例如 `https://xxx.netlify.app`）。
 > 3. 在你的 **Gemini Pro Chat** 项目中，设置名为 `API_BASE_URL` 的环境变量，其值为部署 palm-proxy 时获得的域名 (`https://xxx.netlify.app`)。
 > 4. 重新部署你的 **Gemini Pro Chat** 项目来完成配置。这应该可以解决问题。
@@ -81,15 +81,15 @@ babaohuang/geminiprochat:latest
     node -v
    ```
 
-2. **PNPM**: 我们建议使用 [pnpm](https://pnpm.io/) 来管理依赖关系。如果从未安装过 pnpm，可以使用以下命令进行安装：
+2. **PNPM**: 使用 `package.json` 中声明的 `pnpm@7.28.0` 管理依赖，避免不同版本的锁文件格式造成安装差异。安装命令：
 
    ```bash
-    npm i -g pnpm
+    npm i -g pnpm@7.28.0
    ```
 
 3. **GEMINI_API_KEY**: 在运行此应用程序之前，你需要从 Google 获取 API 密钥。你可以前往 [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)，申请 API 密钥。
 
-### 部署
+### 启动开发服务
 
 1. 安装依赖
 
@@ -97,7 +97,13 @@ babaohuang/geminiprochat:latest
     pnpm install
    ```
 
-2. 复制 `.env.example` 文件并重命名为 `.env`，并在 `.env` 文件中添加 [`GEMINI_API_KEY`](https://makersuite.google.com/app/apikey)。
+2. 在项目根目录复制环境配置模板：
+
+   ```bash
+    cp .env.example .env
+   ```
+
+   然后编辑 `.env`，填写 [`GEMINI_API_KEY`](https://makersuite.google.com/app/apikey)。
 
    ```bash
     GEMINI_API_KEY=AIzaSy...
@@ -108,6 +114,17 @@ babaohuang/geminiprochat:latest
    ```bash
     pnpm run dev
    ```
+
+### 检查与构建
+
+修改代码后，可在项目根目录执行以下命令：
+
+```bash
+pnpm run lint
+pnpm run build
+```
+
+`lint` 检查代码规范，`build` 生成生产构建。部署到 Vercel 时，可使用项目提供的 `pnpm run build:vercel` 命令。
 
 ## 鸣谢
 
